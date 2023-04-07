@@ -4,7 +4,7 @@
 #include <cstdlib>
 using namespace std;
 
-extern const int NUMBER_OF_PLAYERS = 4;
+extern const int NUMBER_OF_PLAYERS = 2;
 extern const int SEVEN_HUNDRED_MILLISECONDS = 700;
 
 class Player {
@@ -49,7 +49,7 @@ int main() {
         rolling_the_dice_output(players[i].name);
         srand((unsigned) time(NULL));
         players[i].score = 1 + (rand() % 6);
-        cout << players[i].name << " rolled a: " << players[i].score << endl;
+        cout << players[i].name << " rolled a " << players[i].score << endl;
     };
 
     Player biggest_roll = players[0];
