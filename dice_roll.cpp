@@ -59,5 +59,7 @@ int main() {
         };
     }
 
-    cout << biggest_roll.name << " won.";
+    cout << biggest_roll.name << " won." << endl;
+
+    system("pause");
 };
