@@ -4,45 +4,49 @@
 #include <cstdlib>
 using namespace std;
 
+extern const int NUMBER_OF_PLAYERS = 2;
+
 class player {
     public: 
         string name;
         int score;
 };
 
-void rolling_output(){
-    cout << "Rolling.";
+void rolling_output(string player_name){
+    cout << player_name << " is rolling.";
     this_thread::sleep_for(chrono::milliseconds(300));
     cout << ".";
     this_thread::sleep_for(chrono::milliseconds(300));
     cout << "." << endl;
 };
 
+player gather_player_data() {
+    player single_player;
+    cout << "Enter player name: ";
+    cin >> single_player.name;
+
+    return single_player;
+};
+
 int main() {
-    player player_one; 
-    cout << "Enter player one name: ";
-    cin >> player_one.name;
+    player players[NUMBER_OF_PLAYERS];
+    for (int i = 0; i < NUMBER_OF_PLAYERS; i++) {
+        players[i] = gather_player_data();
+    };
 
-    player player_two;
-    cout << "Enter player two name: ";
-    cin >>  player_two.name;
+    for (int i = 0; i < NUMBER_OF_PLAYERS; i++) {
+        rolling_output(players[i].name);
+        srand((unsigned) time(NULL));
+        players[i].score = 1 + (rand() % 6);
+        cout << players[i].name << " rolled a: " << players[i].score << endl;
+    };
 
-    rolling_output();
-
-    srand((unsigned) time(NULL));
-    player_one.score = 1 + (rand() % 6);
-    cout << player_one.name << " rolled a: " << player_one.score << endl;
-
-    rolling_output();
-
-    srand((unsigned) time(NULL));
-    player_two.score = 1 + (rand() % 6);
-    cout << player_two.name << " rolled a: " << player_two.score << endl;
-
-    if (player_one.score > player_two.score) {
-        cout << player_one.name << " won.";
+    player biggest_roll = players[0];
+    for (int i = 1; i < NUMBER_OF_PLAYERS; i++) {
+        if (players[i].score > biggest_roll.score){
+            biggest_roll = players[i];
+        };
     }
-    else {
-        cout << player_two.name << " won.";
-    }
+
+    cout << biggest_roll.name << " won.";
 };
